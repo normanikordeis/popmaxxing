@@ -1,1038 +1,313 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Ava Max — POPMAXXiNG</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700&family=IM+Fell+English:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Geist:wght@300;400;600&family=Geist+Mono:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,900;1,400&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --void: #0a0608;
-      --deep: #110d0f;
-      --parchment: #f2e8d5;
-      --parchment-dim: #c9b89a;
-      --gold: #c8943a;
-      --gold-bright: #e8b84b;
-      --gold-light: #f5dfa0;
-      --crimson: #8b1a2e;
-      --crimson-bright: #c0263f;
-      --silver: #b8c4cc;
-      --glass: rgba(18, 10, 14, 0.78);
-      --glass-border: rgba(200, 148, 58, 0.22);
-      --bar-height: 44px;
-      --radius: 18px;
+      --gold: #d4af37;
+      --royal-gold: #c5a028;
+      --deep-crimson: #4a0404;
+      --parchment: #fdfaf0;
+      --ink: #1a1612;
+      --glass-bg: rgba(26, 22, 18, 0.85);
+      --radius: 20px;
     }
-
-    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Geist', sans-serif;
-      background: var(--void);
+      background: #0a0908;
       color: var(--parchment);
       min-height: 100dvh;
       overflow-x: hidden;
       position: relative;
-      cursor: default;
     }
 
-    /* ── Film grain ── */
+    /* Grain & Texture Overlay */
     body::before {
       content: '';
-      position: fixed; inset: 0; z-index: 300; pointer-events: none; opacity: 0.032;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-size: 220px;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      pointer-events: none;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
-    /* ── macOS menubar ── */
+    /* ── macOS Menubar (Medieval Edition) ──────────────── */
     .mac-menubar {
-      position: fixed; top: 0; left: 0; right: 0;
-      height: var(--bar-height);
-      background: rgba(10, 6, 8, 0.90);
-      backdrop-filter: blur(32px) saturate(1.4);
-      -webkit-backdrop-filter: blur(32px) saturate(1.4);
-      border-bottom: 1px solid rgba(200,148,58,0.18);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 20px; z-index: 100;
-      font-size: 13px; font-weight: 500; letter-spacing: 0.02em;
-      color: rgba(242,232,213,0.82);
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 44px;
+      background: rgba(10, 9, 8, 0.9);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 1000;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gold);
     }
-    .apple { font-size: 17px; opacity: 0.9; margin-right: 6px; }
-    .menu-items { display: flex; gap: 18px; align-items: center; }
-    .menu-items span { opacity: 0.70; cursor: default; font-family: 'Geist', sans-serif; }
-    .menu-items span.bold { font-weight: 600; opacity: 1; letter-spacing: 0.04em; }
-    .menu-right { display: flex; gap: 14px; align-items: center; font-size: 12px; opacity: 0.72; }
-    .live-dot {
-      width: 7px; height: 7px; border-radius: 50%; background: var(--gold-bright);
-      animation: ldot 2.5s ease-in-out infinite; display: inline-block;
-    }
-    @keyframes ldot {
-      0%,100%{box-shadow:0 0 0 0 rgba(232,184,75,.5);}
-      50%{box-shadow:0 0 0 5px rgba(232,184,75,0);}
-    }
+    .menu-items { display: flex; gap: 20px; font-family: 'Cinzel', serif; }
     .clock { font-family: 'Geist Mono', monospace; font-size: 12px; }
 
-    /* ── Wallpaper — photo grid ── */
+    /* ── Royal Background ───────────────────────── */
     .wallpaper {
       position: fixed; inset: 0;
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      grid-template-rows: repeat(4, 1fr);
       z-index: 0;
+      background: radial-gradient(circle at center, #2a0202 0%, #0a0908 100%);
     }
-    .wc { overflow: hidden; position: relative; }
-    .wc img { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(0.28) saturate(0.45) sepia(0.3); }
-    .wallpaper::after {
-      content: '';
+    .wp-img {
       position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 90% 60% at 50% 40%, rgba(10,6,8,.55) 0%, transparent 70%),
-        linear-gradient(to bottom, rgba(10,6,8,.70) 0%, rgba(10,6,8,.10) 40%, rgba(10,6,8,.80) 100%);
-      z-index: 1;
+      opacity: 0.35;
+      background: url('https://images.unsplash.com/photo-1599718712282-3786f0d7e481?auto=format&fit=crop&q=80&w=2000') center/cover no-repeat;
+      filter: grayscale(0.5) sepia(0.2) contrast(1.1);
     }
 
-    /* ── Floating polaroids ── */
-    .fp {
-      position: fixed; z-index: 5; pointer-events: none;
-      border: 6px solid var(--parchment); border-bottom-width: 26px;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4);
-      will-change: translate; transition: translate .7s cubic-bezier(.25,.46,.45,.94);
-      border-radius: 2px;
-    }
-    .fp img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(0.8) sepia(0.12); }
-    .fp1 { width: 140px; height: 140px; bottom: 14%; left: 3%; rotate: -8deg; }
-    .fp2 { width: 120px; height: 120px; top: 18%; right: 4%; rotate: 6deg; }
-    .fp3 { width: 110px; height: 130px; bottom: 22%; right: 5%; rotate: -4deg; }
-    .fp4 { width: 130px; height: 115px; top: 20%; left: 3.5%; rotate: 9deg; }
-
-    /* ── Page wrapper ── */
+    /* ── Main Window ─────────────────────────── */
     .page {
       position: relative; z-index: 10;
-      min-height: 100dvh;
       display: flex; flex-direction: column;
-      padding-top: var(--bar-height);
+      align-items: center;
+      padding-top: 80px;
+      padding-bottom: 120px;
     }
 
-    /* ── macOS window ── */
     .mac-window {
-      margin: 32px auto 100px;
-      width: min(920px, calc(100vw - 32px));
-      background: rgba(14, 9, 12, 0.80);
-      backdrop-filter: blur(56px) saturate(1.6);
-      -webkit-backdrop-filter: blur(56px) saturate(1.6);
+      width: min(900px, calc(100vw - 40px));
+      background: var(--glass-bg);
       border-radius: var(--radius);
-      border: 1px solid rgba(200,148,58,0.24);
-      box-shadow:
-        0 50px 100px rgba(0,0,0,0.75),
-        0 1px 0 rgba(200,148,58,0.18) inset,
-        0 0 0 0.5px rgba(0,0,0,0.5);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      box-shadow: 0 50px 100px rgba(0,0,0,0.8);
       overflow: hidden;
-      color: var(--parchment);
     }
 
-    /* title bar */
     .titlebar {
-      height: 44px;
-      background: linear-gradient(to bottom, rgba(22,14,18,0.98), rgba(14,9,12,0.95));
-      border-bottom: 1px solid rgba(200,148,58,0.16);
-      display: flex; align-items: center; padding: 0 16px;
-      position: relative; user-select: none;
+      height: 40px;
+      background: rgba(212, 175, 55, 0.1);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      display: flex; align-items: center;
+      padding: 0 15px;
+      position: relative;
     }
-    .tls { display: flex; gap: 8px; align-items: center; }
-    .tl {
-      width: 13px; height: 13px; border-radius: 50%;
-      box-shadow: inset 0 .5px .5px rgba(255,255,255,.25), 0 .5px 1.5px rgba(0,0,0,.45);
-    }
-    .tl-r { background: #ff5f57; border: .5px solid rgba(220,55,35,.5); }
-    .tl-y { background: #febc2e; border: .5px solid rgba(200,135,15,.5); }
-    .tl-g { background: #28c840; border: .5px solid rgba(18,155,28,.5); }
+    .tls { display: flex; gap: 8px; }
+    .tl { width: 12px; height: 12px; border-radius: 50%; background: var(--gold); opacity: 0.5; }
     .tb-title {
       position: absolute; left: 50%; transform: translateX(-50%);
-      font-family: 'Cinzel', serif; font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
-      color: rgba(200,148,58,0.85); text-transform: uppercase; white-space: nowrap;
+      font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 2px;
     }
 
-    /* window body */
-    .win-body { padding: 40px 48px 52px; }
+    /* ── Content ─────────────────────────── */
+    .win-body { padding: 50px; }
 
-    /* ── Mosaic ── */
-    .mosaic {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr 1fr 1.2fr;
-      grid-template-rows: 145px 82px;
-      gap: 4px; border-radius: 10px; overflow: hidden;
-      margin-bottom: 36px;
-      box-shadow: 0 6px 28px rgba(0,0,0,0.5), 0 0 0 1px rgba(200,148,58,0.15);
-    }
-    .mc { overflow: hidden; position: relative; cursor: default; }
-    .mc img {
-      width: 100%; height: 100%; object-fit: cover; display: block;
-      filter: brightness(0.88) saturate(0.9) sepia(0.08);
-      transition: transform .6s cubic-bezier(.25,.46,.45,.94), filter .6s;
-    }
-    .mc:hover img { transform: scale(1.06); filter: brightness(1.0) saturate(1.1) sepia(0.0); }
-    .mc:nth-child(1) { grid-column: 1; grid-row: 1 / 3; }
-    .mc:nth-child(2) { grid-column: 2; grid-row: 1; }
-    .mc:nth-child(3) { grid-column: 3; grid-row: 1; }
-    .mc:nth-child(4) { grid-column: 4; grid-row: 1 / 3; }
-    .mc:nth-child(5) { grid-column: 2; grid-row: 2; }
-    .mc:nth-child(6) { grid-column: 3; grid-row: 2; }
-
-    /* corner ornaments on mosaic */
-    .mosaic-wrap { position: relative; margin-bottom: 36px; }
-    .mosaic-wrap .mosaic { margin-bottom: 0; }
-    .corner-ornament {
-      position: absolute; width: 24px; height: 24px; z-index: 2; pointer-events: none;
-      opacity: 0.7;
-    }
-    .co-tl { top: -2px; left: -2px; border-top: 2px solid var(--gold); border-left: 2px solid var(--gold); border-radius: 3px 0 0 0; }
-    .co-tr { top: -2px; right: -2px; border-top: 2px solid var(--gold); border-right: 2px solid var(--gold); border-radius: 0 3px 0 0; }
-    .co-bl { bottom: -2px; left: -2px; border-bottom: 2px solid var(--gold); border-left: 2px solid var(--gold); border-radius: 0 0 0 3px; }
-    .co-br { bottom: -2px; right: -2px; border-bottom: 2px solid var(--gold); border-right: 2px solid var(--gold); border-radius: 0 0 3px 0; }
-
-    /* ── Header ── */
-    .header { text-align: center; margin-bottom: 28px; }
-
-    .era-tag {
-      font-family: 'Cinzel', serif; font-size: 10px; font-weight: 600; letter-spacing: 0.22em;
-      color: var(--gold); text-transform: uppercase; margin-bottom: 8px; display: block;
-      opacity: 0.85;
-    }
-
+    .header { text-align: center; margin-bottom: 60px; }
     .artist-name {
-      font-family: 'Cinzel', serif; font-size: 13px; font-weight: 500; letter-spacing: 0.24em;
-      color: var(--parchment-dim); text-transform: uppercase; margin-bottom: 6px; display: block;
-      opacity: 0.75;
+      font-family: 'Cinzel', serif;
+      font-size: 14px; letter-spacing: 6px;
+      color: var(--gold); text-transform: uppercase; margin-bottom: 10px;
     }
-
     .album-title {
-      font-family: 'Cinzel Decorative', serif; font-size: clamp(28px, 5.5vw, 52px);
-      font-weight: 900; line-height: 1.05;
-      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-bright) 35%, var(--gold) 65%, var(--parchment) 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      letter-spacing: 0.04em; margin-bottom: 14px;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(50px, 8vw, 90px);
+      font-weight: 900; line-height: 0.9;
+      background: linear-gradient(to bottom, #fff, var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
     }
 
-    .release-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(200,148,58,0.1); border: 1px solid rgba(200,148,58,0.26);
-      border-radius: 30px; padding: 5px 14px;
-      font-family: 'Cinzel', serif; font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
-      color: var(--gold-light); text-transform: uppercase;
+    /* ── The Tracklist Reveal ────────────────── */
+    .reveal-section {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(212, 175, 55, 0.1);
+      border-radius: 15px;
+      padding: 40px;
     }
-    .rb-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--gold-bright);
-      animation: ldot 2s ease-in-out infinite;
-    }
-
-    /* ── Divider ── */
-    .div {
-      height: 1px;
-      background: linear-gradient(to right, transparent, rgba(200,148,58,0.22) 20%, rgba(200,148,58,0.38) 50%, rgba(200,148,58,0.22) 80%, transparent);
-      margin: 26px 0;
-      position: relative;
-    }
-    .div::before, .div::after {
-      content: '✦';
-      position: absolute; top: 50%; transform: translateY(-50%);
-      font-size: 8px; color: var(--gold); opacity: 0.6;
-    }
-    .div::before { left: 30%; }
-    .div::after  { right: 30%; }
-
-    .div-center {
-      height: 1px;
-      background: linear-gradient(to right, transparent, rgba(200,148,58,0.22) 20%, rgba(200,148,58,0.38) 50%, rgba(200,148,58,0.22) 80%, transparent);
-      margin: 26px 0;
-      position: relative;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .div-center::before {
-      content: '⚜';
-      position: absolute; top: 50%; transform: translateY(-50%);
-      font-size: 11px; color: var(--gold); opacity: 0.55;
-      background: rgba(14, 9, 12, 0.85); padding: 0 8px;
+    .reveal-header {
+      text-align: center; font-family: 'Cinzel', serif;
+      font-size: 12px; color: var(--gold); margin-bottom: 30px;
+      letter-spacing: 3px;
     }
 
-    /* ── Tracklist ── */
-    .tracklist-section { margin-bottom: 0; }
-
-    .section-label {
-      font-family: 'Cinzel', serif; font-size: 9px; font-weight: 600; letter-spacing: 0.28em;
-      color: var(--gold); text-transform: uppercase; margin-bottom: 18px;
-      display: flex; align-items: center; gap: 10px; opacity: 0.8;
+    .track-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
     }
-    .section-label::before, .section-label::after {
-      content: ''; flex: 1; height: 1px;
-      background: linear-gradient(to right, transparent, rgba(200,148,58,0.25));
-    }
-    .section-label::after { background: linear-gradient(to left, transparent, rgba(200,148,58,0.25)); }
-
-    .tracklist { list-style: none; display: flex; flex-direction: column; gap: 6px; }
 
     .track-item {
-      position: relative; cursor: pointer;
-      border-radius: 10px; overflow: hidden;
-      border: 1px solid rgba(200,148,58,0.10);
-      transition: border-color .3s;
-    }
-    .track-item:hover { border-color: rgba(200,148,58,0.28); }
-    .track-item.revealed { border-color: rgba(200,148,58,0.20); cursor: default; }
-
-    .track-inner {
-      display: flex; align-items: center; gap: 16px;
-      padding: 14px 18px;
-      background: rgba(255,255,255,0.02);
-      transition: background .25s;
       position: relative;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      border-radius: 12px;
+      padding: 20px;
+      cursor: pointer;
+      display: flex; align-items: center;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
     }
-    .track-item:hover:not(.revealed) .track-inner { background: rgba(200,148,58,0.06); }
 
-    /* sealed state */
-    .track-seal {
-      position: absolute; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-      background: rgba(12,8,10,0.92);
-      backdrop-filter: blur(8px);
-      transition: opacity .5s, transform .5s;
-      z-index: 2;
-      border-radius: 10px;
+    .track-item:hover {
+      background: rgba(212, 175, 55, 0.08);
+      border-color: var(--gold);
     }
-    .track-seal .seal-icon {
-      font-size: 20px; opacity: 0.4;
-      transition: transform .25s, opacity .25s;
-    }
-    .track-item:hover:not(.revealed) .seal-icon {
-      transform: scale(1.15); opacity: 0.65;
-    }
-    .track-seal .seal-hint {
-      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.18em;
-      color: var(--gold); opacity: 0; margin-left: 8px; text-transform: uppercase;
-      transition: opacity .25s;
-    }
-    .track-item:hover:not(.revealed) .seal-hint { opacity: 0.7; }
 
-    .track-item.revealing .track-seal {
-      opacity: 0; transform: scale(1.04);
-      pointer-events: none;
+    .track-number {
+      font-family: 'Geist Mono', monospace;
+      color: var(--gold); font-size: 12px; margin-right: 25px;
+      width: 20px;
     }
-    .track-item.revealed .track-seal { display: none; }
 
-    /* track content */
-    .track-num {
-      font-family: 'Cinzel', serif; font-size: 11px; font-weight: 600;
-      color: var(--gold); opacity: 0.55; min-width: 22px; letter-spacing: 0.08em;
-    }
-    .track-info { flex: 1; }
     .track-name {
-      font-family: 'Cinzel', serif; font-size: 13px; font-weight: 600;
-      color: var(--parchment); letter-spacing: 0.08em;
-      display: block; margin-bottom: 2px;
-    }
-    .track-status {
-      font-family: 'Geist', sans-serif; font-size: 10px;
-      color: var(--parchment-dim); opacity: 0.5; letter-spacing: 0.04em;
-    }
-    .track-status.out-now { color: var(--gold-bright); opacity: 0.85; }
-    .track-item:not(.revealed) .track-name,
-    .track-item:not(.revealed) .track-status { opacity: 0; }
-    .track-item.revealed .track-name,
-    .track-item.revealed .track-status {
-      animation: fadeUp 0.5s ease forwards;
+      font-family: 'Playfair Display', serif;
+      font-size: 22px; font-weight: 600;
+      letter-spacing: 1px;
+      filter: blur(8px);
+      opacity: 0.2;
+      transition: all 0.6s ease;
+      user-select: none;
     }
 
-    /* spark reveal animation */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(4px); }
-      to   { opacity: 1; transform: translateY(0); }
+    .track-item.revealed .track-name {
+      filter: blur(0);
+      opacity: 1;
     }
 
-    .track-badge {
-      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.12em;
-      padding: 3px 9px; border-radius: 20px; text-transform: uppercase; font-weight: 600;
-    }
-    .badge-single {
-      background: rgba(200,148,58,0.15); border: 1px solid rgba(200,148,58,0.35);
-      color: var(--gold-bright);
-    }
-    .badge-new {
-      background: rgba(139,26,46,0.2); border: 1px solid rgba(192,38,63,0.4);
-      color: #e8607a;
-    }
-    .track-item:not(.revealed) .track-badge { opacity: 0; }
-    .track-item.revealed .track-badge { animation: fadeUp 0.5s 0.15s ease forwards; opacity: 0; }
-
-    /* progress bar glow on revealed */
-    .track-bar {
-      position: absolute; bottom: 0; left: 0; height: 1px;
-      background: linear-gradient(to right, transparent, var(--gold), transparent);
-      width: 0; transition: width 0.8s ease;
-    }
-    .track-item.revealed .track-bar { width: 100%; }
-
-    /* Reveal all button */
-    .reveal-all-wrap { text-align: center; margin-top: 18px; }
-    .reveal-all-btn {
-      font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.2em; font-weight: 600;
-      color: var(--gold); text-transform: uppercase;
-      background: none; border: 1px solid rgba(200,148,58,0.28); border-radius: 30px;
-      padding: 8px 22px; cursor: pointer;
-      transition: background .25s, border-color .25s, color .25s;
-      display: inline-flex; align-items: center; gap: 8px;
-    }
-    .reveal-all-btn:hover { background: rgba(200,148,58,0.12); border-color: rgba(200,148,58,0.5); color: var(--gold-bright); }
-    .reveal-all-btn:disabled { opacity: 0.35; cursor: default; }
-    .reveal-count { font-family: 'Geist Mono', monospace; font-size: 10px; opacity: 0.65; }
-
-    /* ── Singles pills ── */
-    .singles-wrap { margin-bottom: 4px; }
-    .singles-label { font-family: 'Cinzel', serif; font-size: 9px; font-weight: 600; letter-spacing: 0.22em; color: var(--gold); opacity: 0.75; text-transform: uppercase; margin-bottom: 12px; display: block; }
-    .singles-pills { display: flex; flex-wrap: wrap; gap: 8px; }
-    .pill {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(200,148,58,0.07); border: 1px solid rgba(200,148,58,0.18);
-      border-radius: 20px; padding: 5px 12px;
-      font-family: 'IM Fell English', serif; font-size: 12px; color: var(--parchment-dim);
-      transition: background .2s, border-color .2s, color .2s; cursor: default;
-      font-style: italic;
-    }
-    .pill:hover { background: rgba(200,148,58,0.14); border-color: rgba(200,148,58,0.3); color: var(--parchment); }
-    .pill-n { font-family: 'Cinzel', serif; font-size: 9px; color: var(--gold); opacity: 0.6; font-style: normal; }
-
-    /* ── Discography ── */
-    .disco-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-    .disco-item {
-      border-radius: 8px; overflow: hidden; position: relative; cursor: default;
-      border: 1px solid rgba(200,148,58,0.12);
-      transition: border-color .25s, transform .25s;
-    }
-    .disco-item:hover { border-color: rgba(200,148,58,0.32); transform: translateY(-2px); }
-    .disco-cover {
-      width: 100%; aspect-ratio: 1; background: rgba(200,148,58,0.06);
+    .seal-btn {
+      margin-left: auto;
+      width: 34px; height: 34px;
+      background: #7a0b0b;
+      border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-family: 'Cinzel Decorative', serif; font-size: 9px; text-align: center;
-      color: var(--gold); padding: 8px; line-height: 1.3;
-      letter-spacing: 0.04em;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5), inset 0 0 10px rgba(0,0,0,0.3);
+      font-family: 'Cinzel', serif; font-size: 14px; font-weight: 900;
+      color: var(--gold);
+      transition: transform 0.3s;
     }
-    .disco-info { padding: 8px 10px; }
-    .disco-title { font-family: 'Cinzel', serif; font-size: 10px; font-weight: 600; color: var(--parchment); letter-spacing: 0.05em; margin-bottom: 2px; display: block; }
-    .disco-year { font-family: 'Geist Mono', monospace; font-size: 9px; color: var(--parchment-dim); opacity: 0.5; }
+    .track-item.revealed .seal-btn {
+      transform: scale(0.8) rotate(20deg);
+      background: var(--gold); color: #7a0b0b;
+      box-shadow: 0 0 15px var(--gold);
+    }
 
-    /* disco cover artworks with colored gradients */
-    .dc-hh { background: linear-gradient(135deg, #1a0a20 0%, #2d1040 50%, #0d0618 100%); }
-    .dc-dd { background: linear-gradient(135deg, #0a1428 0%, #1a2a4a 50%, #0a0e1a 100%); }
-    .dc-dcp { background: linear-gradient(135deg, #1a0810 0%, #2a0f18 50%, #0e0610 100%); }
-    .dc-pm { background: linear-gradient(135deg, #1a0e06 0%, #2a1a08 50%, #0e0a04 100%); }
-
-    /* ── Dock ── */
+    /* ── Recent Albums Dock ────────────────── */
     .dock {
-      position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
-      background: rgba(10, 6, 8, 0.75);
-      backdrop-filter: blur(40px) saturate(1.5);
-      -webkit-backdrop-filter: blur(40px) saturate(1.5);
-      border-radius: 20px;
-      border: 1px solid rgba(200,148,58,0.20);
-      padding: 8px 16px;
-      display: flex; align-items: flex-end; gap: 8px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.7), 0 0 0 0.5px rgba(200,148,58,0.1) inset;
-      z-index: 50;
+      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 10px; padding: 12px;
+      background: rgba(10, 9, 8, 0.6);
+      backdrop-filter: blur(30px);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 24px;
+      z-index: 1000;
     }
-    .di {
-      width: 48px; height: 48px; border-radius: 12px; overflow: hidden;
-      cursor: pointer; transition: transform .25s cubic-bezier(.34,1.56,.64,1);
-      position: relative;
+    .dock-item {
+      width: 50px; height: 50px; border-radius: 12px; overflow: hidden;
+      cursor: pointer; border: 1px solid rgba(255,255,255,0.1);
+      transition: transform 0.2s;
     }
-    .di:hover { transform: translateY(-10px) scale(1.15); }
-    .di img { width: 100%; height: 100%; object-fit: cover; }
-    .di-btn {
-      background: rgba(200,148,58,0.12); border: 1px solid rgba(200,148,58,0.22);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .di-btn:hover { background: rgba(200,148,58,0.22); }
-    .dsep { width: 1px; height: 36px; background: rgba(200,148,58,0.18); margin: 0 2px; align-self: center; }
+    .dock-item:hover { transform: translateY(-10px) scale(1.2); }
+    .dock-item img { width: 100%; height: 100%; object-fit: cover; }
 
-    /* ── Medieval ornament SVG divider ── */
-    .ornament-row {
-      display: flex; align-items: center; gap: 0; justify-content: center;
-      margin: 20px 0 18px; opacity: 0.45; overflow: hidden;
-    }
-    .ornament-row svg { flex-shrink: 0; }
-
-    /* ── Quote block ── */
-    .quote-block {
-      text-align: center; padding: 20px 28px; position: relative;
-      border-left: 2px solid rgba(200,148,58,0.28);
-      border-right: 2px solid rgba(200,148,58,0.28);
-      margin: 8px 0;
-    }
-    .quote-block::before, .quote-block::after {
-      content: '❝'; position: absolute; font-size: 28px; color: var(--gold); opacity: 0.25;
-      font-family: Georgia, serif; line-height: 1;
-    }
-    .quote-block::before { top: 6px; left: 16px; }
-    .quote-block::after { content: '❞'; bottom: 6px; right: 16px; }
-    .quote-text {
-      font-family: 'IM Fell English', serif; font-style: italic; font-size: 14px;
-      color: var(--parchment-dim); line-height: 1.7; letter-spacing: 0.02em;
-    }
-    .quote-attr {
-      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 0.18em;
-      color: var(--gold); opacity: 0.6; margin-top: 10px; text-transform: uppercase; display: block;
-    }
-
-    /* reveal particle burst */
-    .particle-canvas {
-      position: fixed; inset: 0; z-index: 200; pointer-events: none;
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 640px) {
-      .win-body { padding: 24px 20px 36px; }
-      .mosaic { grid-template-columns: 1fr 1fr; grid-template-rows: 100px 100px 60px; }
-      .mc:nth-child(1) { grid-column: 1; grid-row: 1 / 2; }
-      .mc:nth-child(4) { grid-column: 2; grid-row: 1 / 2; }
-      .fp { display: none; }
-      .disco-grid { grid-template-columns: repeat(2, 1fr); }
-      .album-title { font-size: 28px; }
-    }
-
-    /* Shimmer animation on album title */
-    @keyframes shimmer {
-      0%   { background-position: -200% center; }
-      100% { background-position: 200% center; }
-    }
-    .album-title {
-      background-size: 200% auto;
-      animation: shimmer 5s linear infinite;
-    }
-
-    /* Page load fade */
-    .mac-window { animation: winAppear .7s cubic-bezier(.25,.46,.45,.94) both; }
-    @keyframes winAppear {
-      from { opacity: 0; transform: translateY(14px); }
-      to   { opacity: 1; transform: translateY(0); }
+    @media (max-width: 600px) {
+      .win-body { padding: 25px; }
+      .album-title { font-size: 45px; }
+      .track-name { font-size: 18px; }
     }
   </style>
 </head>
 <body>
 
-<!-- Particle canvas -->
-<canvas class="particle-canvas" id="particleCanvas"></canvas>
+<header class="mac-menubar">
+  <div style="display:flex;align-items:center;gap:15px">
+    <span style="font-size:18px">⚔️</span>
+    <nav class="menu-items">
+      <span style="font-weight:700">POPMAXXiNG</span>
+      <span>Kingdom</span>
+      <span>Archive</span>
+    </nav>
+  </div>
+  <div class="clock" id="menuClock">12:00 PM</div>
+</header>
 
-<!-- macOS menu bar -->
-<div class="mac-menubar">
-  <div class="menu-items">
-    <span class="apple">⌘</span>
-    <span class="bold">POPMAXXiNG</span>
-    <span>File</span>
-    <span>View</span>
-    <span>Tracks</span>
-    <span>Help</span>
-  </div>
-  <div class="menu-right">
-    <span class="live-dot"></span>
-    <span>Listening</span>
-    <span class="clock" id="menuClock">12:00 AM</span>
-  </div>
+<div class="wallpaper">
+  <div class="wp-img"></div>
 </div>
 
-<!-- Wallpaper grid -->
-<div class="wallpaper" aria-hidden="true">
-  <!-- Kill It Queen era photos from known public sources -->
-  <div class="wc"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Ava_Max_2022_%28cropped%29.jpg/800px-Ava_Max_2022_%28cropped%29.jpg" alt=""/></div>
-  <div class="wc"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Ava_Max_2022_%28cropped%29.jpg/800px-Ava_Max_2022_%28cropped%29.jpg" alt=""/></div>
-  <div class="wc"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Ava_Max_2022_%28cropped%29.jpg/800px-Ava_Max_2022_%28cropped%29.jpg" alt=""/></div>
-  <div class="wc"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Ava_Max_2022_%28cropped%29.jpg/800px-Ava_Max_2022_%28cropped%29.jpg" alt=""/></div>
-  <div class="wc"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Ava_Max_2022_%28cropped%29.jpg/800px-Ava_Max_2022_%28cropped%29.jpg" alt=""/></div>
-  <div class="wc"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Ava_Max_2022_%28cropped%29.jpg/800px-Ava_Max_2022_%28cropped%29.jpg" alt=""/></div>
-  <div class="wc"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Ava_Max_2022_%28cropped%29.jpg/800px-Ava_Max_2022_%28cropped%29.jpg" alt=""/></div>
-  <div class="wc"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Ava_Max_2022_%28cropped%29.jpg/800px-Ava_Max_2022_%28cropped%29.jpg" alt=""/></div>
-  <div class="wc"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Ava_Max_2022_%28cropped%29.jpg/800px-Ava_Max_2022_%28cropped%29.jpg" alt=""/></div>
-  <div class="wc"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Ava_Max_2022_%28cropped%29.jpg/800px-Ava_Max_2022_%28cropped%29.jpg" alt=""/></div>
-  <div class="wc"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Ava_Max_2022_%28cropped%29.jpg/800px-Ava_Max_2022_%28cropped%29.jpg" alt=""/></div>
-  <div class="wc"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Ava_Max_2022_%28cropped%29.jpg/800px-Ava_Max_2022_%28cropped%29.jpg" alt=""/></div>
-  <div class="wc"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Ava_Max_2022_%28cropped%29.jpg/800px-Ava_Max_2022_%28cropped%29.jpg" alt=""/></div>
-  <div class="wc"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Ava_Max_2022_%28cropped%29.jpg/800px-Ava_Max_2022_%28cropped%29.jpg" alt=""/></div>
-  <div class="wc"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Ava_Max_2022_%28cropped%29.jpg/800px-Ava_Max_2022_%28cropped%29.jpg" alt=""/></div>
-  <div class="wc"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Ava_Max_2022_%28cropped%29.jpg/800px-Ava_Max_2022_%28cropped%29.jpg" alt=""/></div>
-  <div class="wc"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Ava_Max_2022_%28cropped%29.jpg/800px-Ava_Max_2022_%28cropped%29.jpg" alt=""/></div>
-  <div class="wc"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Ava_Max_2022_%28cropped%29.jpg/800px-Ava_Max_2022_%28cropped%29.jpg" alt=""/></div>
-  <div class="wc"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Ava_Max_2022_%28cropped%29.jpg/800px-Ava_Max_2022_%28cropped%29.jpg" alt=""/></div>
-  <div class="wc"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Ava_Max_2022_%28cropped%29.jpg/800px-Ava_Max_2022_%28cropped%29.jpg" alt=""/></div>
-</div>
-
-<!-- Floating polaroids -->
-<div class="fp fp1" aria-hidden="true"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Ava_Max_2022_%28cropped%29.jpg/800px-Ava_Max_2022_%28cropped%29.jpg" alt="Ava Max"/></div>
-<div class="fp fp2" aria-hidden="true"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Ava_Max_2022_%28cropped%29.jpg/800px-Ava_Max_2022_%28cropped%29.jpg" alt="Ava Max"/></div>
-<div class="fp fp3" aria-hidden="true"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Ava_Max_2022_%28cropped%29.jpg/800px-Ava_Max_2022_%28cropped%29.jpg" alt="Ava Max"/></div>
-<div class="fp fp4" aria-hidden="true"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Ava_Max_2022_%28cropped%29.jpg/800px-Ava_Max_2022_%28cropped%29.jpg" alt="Ava Max"/></div>
-
-<!-- Main page -->
 <div class="page">
-  <main>
-    <div class="mac-window">
-      <!-- Title bar -->
-      <div class="titlebar">
-        <div class="tls">
-          <div class="tl tl-r"></div>
-          <div class="tl tl-y"></div>
-          <div class="tl tl-g"></div>
-        </div>
-        <div class="tb-title">AVA MAX — POPMAXXiNG.app</div>
+  <main class="mac-window">
+    <div class="titlebar">
+      <div class="tls">
+        <div class="tl"></div>
+        <div class="tl"></div>
+        <div class="tl"></div>
+      </div>
+      <div class="tb-title">Ava Max — Royal_Decict.app</div>
+    </div>
+
+    <div class="win-body">
+      <div class="header">
+        <p class="artist-name">Ava Max</p>
+        <h1 class="album-title">POPMAXXiNG</h1>
+        <p style="font-family: 'Geist Mono'; font-size: 10px; letter-spacing: 3px; color: var(--gold); opacity: 0.7;">
+          SUMMER MMXXVI — THE REIGN BEGINS
+        </p>
       </div>
 
-      <!-- Window body -->
-      <div class="win-body">
-
-        <!-- Photo mosaic -->
-        <div class="mosaic-wrap">
-          <div class="corner-ornament co-tl"></div>
-          <div class="corner-ornament co-tr"></div>
-          <div class="corner-ornament co-bl"></div>
-          <div class="corner-ornament co-br"></div>
-          <div class="mosaic" aria-label="Ava Max POPMAXXiNG era photographs">
-            <div class="mc"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Ava_Max_2022_%28cropped%29.jpg/800px-Ava_Max_2022_%28cropped%29.jpg" alt="Ava Max — KiLL iT QUEEN era"/></div>
-            <div class="mc"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Ava_Max_-_Diamonds_and_Dancefloors_Tour_%28cropped%29.jpg/800px-Ava_Max_-_Diamonds_and_Dancefloors_Tour_%28cropped%29.jpg" alt="Ava Max"/></div>
-            <div class="mc"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Ava_Max_2022_%28cropped%29.jpg/800px-Ava_Max_2022_%28cropped%29.jpg" alt="Ava Max — Out of Your Mind era"/></div>
-            <div class="mc"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Ava_Max_-_Diamonds_and_Dancefloors_Tour_%28cropped%29.jpg/800px-Ava_Max_-_Diamonds_and_Dancefloors_Tour_%28cropped%29.jpg" alt="Ava Max"/></div>
-            <div class="mc"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Ava_Max_-_Diamonds_and_Dancefloors_Tour_%28cropped%29.jpg/800px-Ava_Max_-_Diamonds_and_Dancefloors_Tour_%28cropped%29.jpg" alt="Ava Max"/></div>
-            <div class="mc"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Ava_Max_2022_%28cropped%29.jpg/800px-Ava_Max_2022_%28cropped%29.jpg" alt="Ava Max"/></div>
+      <div class="reveal-section">
+        <p class="reveal-header">Break the wax seals to reveal the tracklist</p>
+        <div class="track-grid" id="trackGrid">
           </div>
-        </div>
-
-        <!-- Header -->
-        <div class="header">
-          <span class="era-tag">✦ New Album ✦ Coming 2026 ✦</span>
-          <span class="artist-name">Ava Max</span>
-          <h1 class="album-title">POPMAXXiNG</h1>
-          <span class="release-badge">
-            <span class="rb-dot"></span>
-            Album IV &nbsp;·&nbsp; 2026 &nbsp;·&nbsp; Artist Partner Group
-          </span>
-        </div>
-
-        <!-- Quote -->
-        <div class="div-center"></div>
-        <div class="quote-block">
-          <p class="quote-text">"I'm telling my story my way. I feel empowered, reinvigorated — and I think you can hear it. This is for anyone who wants to feel unstoppable."</p>
-          <span class="quote-attr">— Ava Max, February 2026</span>
-        </div>
-        <div class="div-center"></div>
-
-        <!-- TRACKLIST -->
-        <div class="tracklist-section">
-          <p class="section-label">⚜ Tracklist</p>
-
-          <ul class="tracklist" id="tracklist">
-
-            <li class="track-item revealed" data-index="0">
-              <div class="track-inner">
-                <span class="track-num">01</span>
-                <div class="track-info">
-                  <span class="track-name">KiLL iT QUEEN</span>
-                  <span class="track-status out-now">Out Now · Feb 25, 2026</span>
-                </div>
-                <span class="track-badge badge-single">Lead Single</span>
-              </div>
-              <div class="track-bar"></div>
-            </li>
-
-            <li class="track-item" data-index="1">
-              <div class="track-inner">
-                <span class="track-num">02</span>
-                <div class="track-info">
-                  <span class="track-name">WHY AREN'T YOU DEAD</span>
-                  <span class="track-status">Album Track</span>
-                </div>
-              </div>
-              <div class="track-seal">
-                <span class="seal-icon">⚜</span>
-                <span class="seal-hint">Reveal</span>
-              </div>
-              <div class="track-bar"></div>
-            </li>
-
-            <li class="track-item revealed" data-index="2">
-              <div class="track-inner">
-                <span class="track-num">03</span>
-                <div class="track-info">
-                  <span class="track-name">OUT OF YOUR MIND</span>
-                  <span class="track-status out-now">Out Now · Apr 15, 2026</span>
-                </div>
-                <span class="track-badge badge-single">Single</span>
-              </div>
-              <div class="track-bar"></div>
-            </li>
-
-            <li class="track-item" data-index="3">
-              <div class="track-inner">
-                <span class="track-num">04</span>
-                <div class="track-info">
-                  <span class="track-name">BEFORE YOU KNOW IT</span>
-                  <span class="track-status">Album Track</span>
-                </div>
-              </div>
-              <div class="track-seal">
-                <span class="seal-icon">⚜</span>
-                <span class="seal-hint">Reveal</span>
-              </div>
-              <div class="track-bar"></div>
-            </li>
-
-            <li class="track-item" data-index="4">
-              <div class="track-inner">
-                <span class="track-num">05</span>
-                <div class="track-info">
-                  <span class="track-name">KNOW MY NAME</span>
-                  <span class="track-status">Album Track</span>
-                </div>
-              </div>
-              <div class="track-seal">
-                <span class="seal-icon">⚜</span>
-                <span class="seal-hint">Reveal</span>
-              </div>
-              <div class="track-bar"></div>
-            </li>
-
-            <li class="track-item" data-index="5">
-              <div class="track-inner">
-                <span class="track-num">06</span>
-                <div class="track-info">
-                  <span class="track-name">BLOCKBUSTER</span>
-                  <span class="track-status">Album Track</span>
-                </div>
-              </div>
-              <div class="track-seal">
-                <span class="seal-icon">⚜</span>
-                <span class="seal-hint">Reveal</span>
-              </div>
-              <div class="track-bar"></div>
-            </li>
-
-            <li class="track-item" data-index="6">
-              <div class="track-inner">
-                <span class="track-num">07</span>
-                <div class="track-info">
-                  <span class="track-name">PLATONIC</span>
-                  <span class="track-status">Album Track</span>
-                </div>
-              </div>
-              <div class="track-seal">
-                <span class="seal-icon">⚜</span>
-                <span class="seal-hint">Reveal</span>
-              </div>
-              <div class="track-bar"></div>
-            </li>
-
-            <li class="track-item" data-index="7">
-              <div class="track-inner">
-                <span class="track-num">08</span>
-                <div class="track-info">
-                  <span class="track-name">TWO FREAKS IN LOVE</span>
-                  <span class="track-status">Album Track</span>
-                </div>
-              </div>
-              <div class="track-seal">
-                <span class="seal-icon">⚜</span>
-                <span class="seal-hint">Reveal</span>
-              </div>
-              <div class="track-bar"></div>
-            </li>
-
-            <li class="track-item" data-index="8">
-              <div class="track-inner">
-                <span class="track-num">09</span>
-                <div class="track-info">
-                  <span class="track-name">ENERGY</span>
-                  <span class="track-status">Album Track</span>
-                </div>
-              </div>
-              <div class="track-seal">
-                <span class="seal-icon">⚜</span>
-                <span class="seal-hint">Reveal</span>
-              </div>
-              <div class="track-bar"></div>
-            </li>
-
-            <li class="track-item" data-index="9">
-              <div class="track-inner">
-                <span class="track-num">10</span>
-                <div class="track-info">
-                  <span class="track-name">WORK</span>
-                  <span class="track-status">Album Track</span>
-                </div>
-              </div>
-              <div class="track-seal">
-                <span class="seal-icon">⚜</span>
-                <span class="seal-hint">Reveal</span>
-              </div>
-              <div class="track-bar"></div>
-            </li>
-
-            <li class="track-item" data-index="10">
-              <div class="track-inner">
-                <span class="track-num">11</span>
-                <div class="track-info">
-                  <span class="track-name">ONE NiGHT</span>
-                  <span class="track-status">Album Closer</span>
-                </div>
-                <span class="track-badge badge-new">Closer</span>
-              </div>
-              <div class="track-seal">
-                <span class="seal-icon">⚜</span>
-                <span class="seal-hint">Reveal</span>
-              </div>
-              <div class="track-bar"></div>
-            </li>
-
-          </ul>
-
-          <div class="reveal-all-wrap">
-            <button class="reveal-all-btn" id="revealAllBtn">
-              <span>Unseal All Tracks</span>
-              <span class="reveal-count" id="revealCount">8 remaining</span>
-            </button>
-          </div>
-        </div>
-
-        <div class="div"></div>
-
-        <!-- Era singles -->
-        <div class="singles-wrap">
-          <span class="singles-label">POPMAXXiNG era singles</span>
-          <div class="singles-pills">
-            <span class="pill"><span class="pill-n">I</span>KiLL iT QUEEN</span>
-            <span class="pill"><span class="pill-n">II</span>Out Of Your Mind</span>
-          </div>
-        </div>
-
-        <div class="div"></div>
-
-        <!-- Discography -->
-        <div class="section-label" style="margin-bottom:14px;">⚜ The Chronicles</div>
-        <div class="disco-grid">
-          <div class="disco-item">
-            <div class="disco-cover dc-hh">
-              <div>
-                <div style="font-size:14px;margin-bottom:4px;">⚜</div>
-                Heaven &amp; Hell
-              </div>
-            </div>
-            <div class="disco-info">
-              <span class="disco-title">Heaven &amp; Hell</span>
-              <span class="disco-year">2020 · Album I</span>
-            </div>
-          </div>
-          <div class="disco-item">
-            <div class="disco-cover dc-dd">
-              <div>
-                <div style="font-size:14px;margin-bottom:4px;">◆</div>
-                Diamonds &amp; Dancefloors
-              </div>
-            </div>
-            <div class="disco-info">
-              <span class="disco-title">Diamonds &amp; Dancefloors</span>
-              <span class="disco-year">2023 · Album II</span>
-            </div>
-          </div>
-          <div class="disco-item">
-            <div class="disco-cover dc-dcp">
-              <div>
-                <div style="font-size:14px;margin-bottom:4px;">▶</div>
-                Don't Click Play
-              </div>
-            </div>
-            <div class="disco-info">
-              <span class="disco-title">Don't Click Play</span>
-              <span class="disco-year">2025 · Album III</span>
-            </div>
-          </div>
-          <div class="disco-item">
-            <div class="disco-cover dc-pm" style="background: linear-gradient(135deg, #1a0e06 0%, #3a2008 50%, #0e0a04 100%); border: 1px solid rgba(200,148,58,0.3);">
-              <div>
-                <div style="font-size:18px;margin-bottom:4px;color:var(--gold-bright);">♛</div>
-                <span style="color:var(--gold-bright);font-size:8px;letter-spacing:0.08em;">POPMAXXiNG</span>
-              </div>
-            </div>
-            <div class="disco-info">
-              <span class="disco-title" style="color:var(--gold-bright);">POPMAXXiNG</span>
-              <span class="disco-year">2026 · Album IV</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="div"></div>
-
-        <!-- About -->
-        <div style="text-align:center; padding: 0 12px;">
-          <span class="section-label" style="justify-content:center; margin-bottom:14px; display:flex;">⚜ The Reign of Ava Max</span>
-          <p style="font-family:'IM Fell English',serif; font-style:italic; font-size:13px; color:var(--parchment-dim); line-height:1.75; letter-spacing:0.02em;">
-            Amanda Ava Koci — born February 16, 1994 — rose to global dominance with <em>Sweet but Psycho</em> (2018), topping charts in 22 kingdoms. With <em>Kings &amp; Queens</em>, <em>My Head &amp; My Heart</em>, <em>The Motto</em> with Tiësto, and a catalogue exceeding 29 billion streams, she commands one of pop's mightiest legacies. Having parted ways with Atlantic Records in early 2026, her fourth studio album arrives under Artist Partner Group — fully independent, fully unstoppable.
-          </p>
-        </div>
-
-      </div><!-- /win-body -->
-    </div><!-- /mac-window -->
+      </div>
+    </div>
   </main>
-</div><!-- /page -->
+</div>
 
-<!-- Dock -->
-<nav class="dock" aria-label="Quick links">
-  <div class="di" title="Spotify" onclick="window.open('https://open.spotify.com/artist/26kg6XPHQEWUxPFD03VYMB','_blank')" role="link" tabindex="0">
-    <div style="width:100%;height:100%;background:#1DB954;border-radius:12px;display:flex;align-items:center;justify-content:center;">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
-    </div>
-  </div>
-  <div class="di" title="Apple Music" onclick="window.open('https://music.apple.com/us/artist/ava-max/1265164818','_blank')" role="link" tabindex="0">
-    <div style="width:100%;height:100%;background:linear-gradient(135deg,#fc3c44,#f94f5c);border-radius:12px;display:flex;align-items:center;justify-content:center;">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043a5.022 5.022 0 00-1.877-.726 10.496 10.496 0 00-1.564-.15c-.04-.003-.083-.01-.124-.013H5.986c-.152.01-.303.017-.455.026C4.786.07 4.043.15 3.34.428 2.004.958 1.04 1.88.475 3.208A5.494 5.494 0 00.05 5.01C.015 5.4 0 5.794 0 6.187V17.9c.016.35.03.7.07 1.05.148 1.375.48 2.635 1.322 3.73a5.513 5.513 0 003.34 2.078c.64.128 1.3.164 1.96.184.228.007.455.01.683.01h11.39c.43 0 .86-.014 1.285-.044a8.207 8.207 0 002.204-.483 5.52 5.52 0 002.986-3.062c.29-.78.42-1.59.47-2.41.01-.19.016-.38.016-.57V8.01c0-.63-.006-1.26 0-1.885zm-7.753 1.73l-4.5 2.598v5.196l-.002.008a2.1 2.1 0 01-2.1 2.1 2.1 2.1 0 01-2.1-2.1 2.1 2.1 0 012.1-2.1c.41 0 .79.12 1.116.316V6.845a.6.6 0 01.3-.52l5.1-2.944a.6.6 0 01.9.52v2.41a.6.6 0 01-.3.519l-.514.303z"/></svg>
-    </div>
-  </div>
-  <div class="dsep" aria-hidden="true"></div>
-  <div class="di di-btn" title="Instagram" onclick="window.open('https://instagram.com/avamax','_blank')" role="link" tabindex="0" aria-label="Instagram">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(242,232,213,.85)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="2" y="2" width="20" height="20" rx="5.5"/>
-      <circle cx="12" cy="12" r="4.2"/>
-      <circle cx="17.5" cy="6.5" r="1.1" fill="rgba(242,232,213,.85)" stroke="none"/>
-    </svg>
-  </div>
-  <div class="di di-btn" title="X / Twitter" onclick="window.open('https://x.com/avamax','_blank')" role="link" tabindex="0" aria-label="X Twitter">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="rgba(242,232,213,.85)"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.26 5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-  </div>
-  <div class="di di-btn" title="avamax.com" onclick="window.open('https://www.avamax.com','_blank')" role="link" tabindex="0" aria-label="Official website">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(242,232,213,.85)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="10"/>
-      <path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/>
-    </svg>
+<nav class="dock">
+  <div class="dock-item" title="Heaven & Hell"><img src="https://m.media-amazon.com/images/I/815y0BCHH0L._SL1500_.jpg" alt="H&H"/></div>
+  <div class="dock-item" title="Diamonds & Dancefloors"><img src="https://m.media-amazon.com/images/I/813tNidXj5L._SL1500_.jpg" alt="D&D"/></div>
+  <div class="dock-item" title="I Am"><img src="https://upload.wikimedia.org/wikipedia/en/2/2f/Ava_Max_-_I_Am.png" alt="I Am"/></div>
+  <div style="width:1px; background:rgba(212,175,55,0.3); margin: 0 5px;"></div>
+  <div class="dock-item" title="Instagram" onclick="window.open('https://instagram.com/avamax')">
+    <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" style="filter: invert(1) sepia(1) saturate(5) hue-rotate(0deg);" />
   </div>
 </nav>
 
 <script>
-  // ── Menu bar clock ──
-  function pad(n) { return String(Math.max(0,n)).padStart(2,'0'); }
+  const tracks = [
+    "KiLL iT QUEEN", "WHY AREN'T YOU DEAD", "OUT OF YOUR MIND",
+    "BEFORE YOU KNOW IT", "KNOW MY NAME", "BLOCKBUSTER",
+    "PLATONIC", "TWO FREAKS IN LOVE", "ENERGY", "WORK", "ONE NiGHT"
+  ];
+
+  const grid = document.getElementById('trackGrid');
+
+  tracks.forEach((track, i) => {
+    const item = document.createElement('div');
+    item.className = 'track-item';
+    item.innerHTML = `
+      <span class="track-number">${(i+1).toString().padStart(2, '0')}</span>
+      <span class="track-name">${track}</span>
+      <div class="seal-btn">M</div>
+    `;
+    item.onclick = () => item.classList.add('revealed');
+    grid.appendChild(item);
+  });
+
   function updateClock() {
-    const n = new Date(), h = n.getHours() % 12 || 12, m = n.getMinutes();
-    const ap = n.getHours() >= 12 ? 'PM' : 'AM';
-    document.getElementById('menuClock').textContent = `${pad(h)}:${pad(m)} ${ap}`;
+    const n = new Date();
+    document.getElementById('menuClock').textContent = n.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
   }
-  updateClock(); setInterval(updateClock, 15000);
-
-  // ── Tracklist reveal ──
-  const tracks = document.querySelectorAll('.track-item');
-  let revealedCount = Array.from(tracks).filter(t => t.classList.contains('revealed')).length;
-  const totalUnrevealed = tracks.length - revealedCount;
-  let remainingToReveal = totalUnrevealed;
-
-  const revealBtn = document.getElementById('revealAllBtn');
-  const revealCount = document.getElementById('revealCount');
-
-  function updateRevealBtn() {
-    revealCount.textContent = remainingToReveal > 0 ? `${remainingToReveal} remaining` : 'All unsealed ✦';
-    if (remainingToReveal === 0) revealBtn.disabled = true;
-  }
-  updateRevealBtn();
-
-  function spawnParticles(x, y) {
-    const canvas = document.getElementById('particleCanvas');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    const particles = [];
-    const colors = ['#e8b84b','#c8943a','#f5dfa0','#fff8e8','#8b1a2e'];
-    for (let i = 0; i < 22; i++) {
-      particles.push({
-        x, y,
-        vx: (Math.random() - 0.5) * 5,
-        vy: (Math.random() - 0.8) * 5,
-        alpha: 1,
-        r: Math.random() * 3 + 1,
-        color: colors[Math.floor(Math.random() * colors.length)]
-      });
-    }
-
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      let alive = false;
-      particles.forEach(p => {
-        p.x += p.vx;
-        p.y += p.vy;
-        p.vy += 0.12;
-        p.alpha -= 0.028;
-        if (p.alpha > 0) {
-          alive = true;
-          ctx.save();
-          ctx.globalAlpha = p.alpha;
-          ctx.fillStyle = p.color;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.restore();
-        }
-      });
-      if (alive) requestAnimationFrame(draw);
-      else ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
-    draw();
-  }
-
-  function revealTrack(item, event) {
-    if (item.classList.contains('revealed') || item.classList.contains('revealing')) return;
-    item.classList.add('revealing');
-    setTimeout(() => {
-      item.classList.add('revealed');
-      item.classList.remove('revealing');
-      remainingToReveal--;
-      updateRevealBtn();
-    }, 480);
-
-    // Particle burst
-    if (event) {
-      const rect = item.getBoundingClientRect();
-      spawnParticles(rect.left + rect.width / 2, rect.top + rect.height / 2);
-    }
-  }
-
-  tracks.forEach(item => {
-    item.addEventListener('click', (e) => {
-      if (!item.classList.contains('revealed')) revealTrack(item, e);
-    });
-    item.addEventListener('keydown', (e) => {
-      if ((e.key === 'Enter' || e.key === ' ') && !item.classList.contains('revealed')) {
-        e.preventDefault(); revealTrack(item, null);
-      }
-    });
-    if (!item.classList.contains('revealed')) {
-      item.setAttribute('tabindex', '0');
-      item.setAttribute('role', 'button');
-      item.setAttribute('aria-label', `Reveal track ${+item.dataset.index + 1}`);
-    }
-  });
-
-  revealBtn.addEventListener('click', () => {
-    let delay = 0;
-    tracks.forEach(item => {
-      if (!item.classList.contains('revealed')) {
-        setTimeout(() => revealTrack(item, null), delay);
-        delay += 160;
-      }
-    });
-  });
-
-  // ── Mouse parallax on polaroids ──
-  const fps = document.querySelectorAll('.fp');
-  document.addEventListener('mousemove', e => {
-    const x = (e.clientX / window.innerWidth - .5) * 22;
-    const y = (e.clientY / window.innerHeight - .5) * 15;
-    fps.forEach((el, i) => {
-      const d = i % 2 === 0 ? 1 : -1;
-      el.style.translate = `${x * d * .35}px ${y * d * .25}px`;
-    });
-  });
+  setInterval(updateClock, 1000);
+  updateClock();
 </script>
+
 </body>
 </html>
