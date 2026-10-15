@@ -98,16 +98,16 @@ const YT_COUNT = album.length;
    Slots with an empty url still show in the list (tracks 14-23) but can't be played until you add a url. Add or remove rows freely.
    Use full https:// URLs, or relative paths like "audio/song1.mp3" if the files sit next to this page. */
 const selfHosted = [
- { title: "", artist: "Leah Kate", url: "", duration: "" },
- { title: "", artist: "Leah Kate", url: "", duration: "" },
- { title: "", artist: "Leah Kate", url: "", duration: "" },
- { title: "", artist: "Leah Kate", url: "", duration: "" },
- { title: "", artist: "Leah Kate", url: "", duration: "" },
- { title: "", artist: "Leah Kate", url: "", duration: "" },
- { title: "", artist: "Leah Kate", url: "", duration: "" },
- { title: "", artist: "Leah Kate", url: "", duration: "" },
- { title: "", artist: "Leah Kate", url: "", duration: "" },
- { title: "", artist: "Leah Kate", url: "", duration: "" }
+ { title: "Girl Talk", artist: "Leah Kate", url: "https://b.imgur.gg/rBINJec-Girl_Talk.mp3", duration: "2:25" },
+ { title: "The Idea of You", artist: "Leah Kate", url: "https://b.imgur.gg/e1EgFaq-The_Idea_of_You.mp3", duration: "2:46" },
+ { title: "Just Because", artist: "Leah Kate", url: "https://b.imgur.gg/i88l6e5-Just_Because.m4a", duration: "2:50" },
+ { title: "Nasty", artist: "Leah Kate", url: "https://b.imgur.gg/gB9jVHK-Nasty.mp3", duration: "2:37" },
+ { title: "Scam", artist: "Leah Kate", url: "https://b.imgur.gg/Zjufapd-SCAM.m4a", duration: "3:04" },
+ { title: "Thin Ice", artist: "Leah Kate", url: "https://b.imgur.gg/G8Vyaig-Thin_Ice.mp3", duration: "3:34" },
+ { title: "Ugly", artist: "Leah Kate", url: "https://b.imgur.gg/zzQkYWg-Ugly.mp3", duration: "2:33" },
+ { title: "What Girls Do", artist: "Leah Kate", url: "https://b.imgur.gg/MgRpt7P-What_Girls_Do.mp3", duration: "2:16" },
+ { title: "Apocalypse", artist: "Leah Kate", url: "https://b.imgur.gg/1ziO7uS-Apocalypse.mp3", duration: "3:55" },
+ { title: "Zombie", artist: "Leah Kate", url: "https://b.imgur.gg/uo9QaU4-Zombie.mp3", duration: "2:51" }
 ];
 selfHosted.forEach((s,n)=>album.push({id:album.length,title:s.title||("Track "+(YT_COUNT+n+1)),duration:s.duration||"--:--",artist:s.artist||"Leah Kate",url:(s.url||"").trim(),local:true,hosted:true,empty:!(s.url&&s.url.trim())}));
 const $=id=>document.getElementById(id);
