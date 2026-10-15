@@ -51,7 +51,7 @@ main{min-width:0;grid-row:1;overflow:auto;max-height:calc(100vh - 92px);padding:
       <div class="eyebrow">Album · 2025 · Pop</div>
       <h1>Genius (Deluxe)</h1>
       <div class="artist">Leah Kate</div>
-      <div class="meta">23 songs · Explicit · Released November 7, 2025</div>
+      <div class="meta">24 songs · Explicit · Released November 7, 2025</div>
       <div class="hero-actions"><button class="primary" id="playAlbum">▶ &nbsp; Play Album</button><button class="secondary" id="shuffleAlbum">⤨ &nbsp; Shuffle</button></div>
     </div>
     <div class="cover" role="img" aria-label="Stylized pink Genius album artwork">
@@ -108,6 +108,7 @@ const selfHosted = [
  { title: "What Girls Do", artist: "Leah Kate", url: "https://b.imgur.gg/MgRpt7P-What_Girls_Do.mp3", duration: "2:16" },
  { title: "Apocalypse", artist: "Leah Kate", url: "https://b.imgur.gg/1ziO7uS-Apocalypse.mp3", duration: "3:55" },
  { title: "Zombie", artist: "Leah Kate", url: "https://b.imgur.gg/uo9QaU4-Zombie.mp3", duration: "2:51" }
+ { title: "Curveball", artist: "Leah Kate", url: "https://b.imgur.gg/SrW8Ys6-Curveball.mp3", duration: "3:22" }
 ];
 selfHosted.forEach((s,n)=>album.push({id:album.length,title:s.title||("Track "+(YT_COUNT+n+1)),duration:s.duration||"--:--",artist:s.artist||"Leah Kate",url:(s.url||"").trim(),local:true,hosted:true,empty:!(s.url&&s.url.trim())}));
 const $=id=>document.getElementById(id);
